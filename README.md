@@ -1,18 +1,6 @@
-## 🌄 Image Webp Converter
-
-## Description
+# 🌄 Image Webp Converter
 
 This is a simple CLI tool that allows you to convert images to webp format.
-
-<br />
-
-## Notes
-
-- By default, it converts all images in the `./images` directory of the current directory. Therefore, if the `./images` directory does not exist, you need to create it and add images.
-
-- By default, converted images are saved in the `images/webp` directory. This directory will be automatically created if it doesn't exist.
-
-- Supported image formats are: `JPG`, `JPEG`, and `PNG`. These formats will be converted to WebP format during the conversion process.
 
 <br />
 
@@ -59,6 +47,14 @@ yarn webpc
 ```bash
 pnpm run webpc
 ```
+
+### Notes
+
+- By default, it converts all images in the `./images` directory of the current directory. Therefore, if the `./images` directory does not exist, you need to create it and add images.
+
+- By default, converted images are saved in the `images/webp` directory. This directory will be automatically created if it doesn't exist.
+
+- Supported image formats are: `JPG`, `JPEG`, and `PNG`. These formats will be converted to WebP format during the conversion process.
 
 <br />
 
