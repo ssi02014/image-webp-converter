@@ -1,16 +1,29 @@
 import imagemin from "imagemin";
 import imageminWebp from "imagemin-webp";
-import { argv } from "./utils.js";
 
-(async function () {
-  console.log(
-    `Processing images from: ${argv.path} with quality: ${argv.quality}`
-  );
+import { argv } from "./yargs.js";
+import { isValidFileFormat, compareSize, printOptionsInfo } from "./utils.js";
+
+async function ImageWebpConverter() {
+  if (!isValidFileFormat()) return;
+
+  printOptionsInfo();
 
   await imagemin([`${argv.path}/*.{jpg,jpeg,png}`], {
     destination: argv.destination,
-    plugins: [imageminWebp({ quality: argv.quality })],
+    plugins: [
+      imageminWebp({
+        quality: argv.quality,
+        lossless: argv.lossless,
+        resize: argv.resize,
+        crop: argv.crop,
+      }),
+    ],
   });
 
-  console.log("Image optimization completed!");
-})();
+  compareSize();
+
+  console.log("\n✅ Images have been successfully converted to Webp format!");
+}
+
+ImageWebpConverter();
