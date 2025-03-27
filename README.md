@@ -86,10 +86,11 @@ images/
 
 <br />
 
-- When the conversion is performed, you can check the conversion information as shown below.
+When the conversion is performed, you can check the conversion information as shown below.
 
 <img width="758" alt="Image" src="https://github.com/user-attachments/assets/d426bb59-041a-474c-b36a-b1a95eef368c" />
 
+<br />
 <br />
 
 ## Options
