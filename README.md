@@ -1,14 +1,16 @@
 # 🌄 Image Webp Converter
 
-This is a simple CLI tool that allows you to convert images to webp format.
+This is a simple CLI tool that allows you to convert images to webp format. It provides an easy way to convert `JPG`, `JPEG`, and `PNG` images to the more efficient `Webp` format. With this tool, you can:
+
+- Convert multiple images at once
+- Maintain image quality while reducing file size
+- Customize output settings like quality and lossless
+- Resize images during conversion
+- Crop images to specific dimensions
 
 <br />
 
-## Installation
-
-```bash
-npm install image-webp-converter
-```
+## 📦 Installation
 
 ```bash
 yarn add image-webp-converter
@@ -18,9 +20,13 @@ yarn add image-webp-converter
 pnpm add image-webp-converter
 ```
 
+```bash
+npm install image-webp-converter
+```
+
 <br />
 
-## Usage
+## 📝 Usage
 
 After installing the package, add the following script to your `package.json` file.
 
@@ -37,10 +43,6 @@ After installing the package, add the following script to your `package.json` fi
 Run the following command to convert the images to webp format.
 
 ```bash
-npm run webpc
-```
-
-```bash
 yarn webpc
 ```
 
@@ -48,13 +50,19 @@ yarn webpc
 pnpm run webpc
 ```
 
+```bash
+npm run webpc
+```
+
+<br />
+
 ### Notes
 
-- By default, it converts all images in the `./images` directory of the current directory. Therefore, if the `./images` directory does not exist, you need to create it and add images.
+> By default, it converts all images in the `./images` directory of the current directory. Therefore, if the `./images` directory does not exist, you need to create it and add images.
 
-- By default, converted images are saved in the `images/webp` directory. This directory will be automatically created if it doesn't exist.
+> By default, converted images are saved in the `images/webp` directory. This directory will be automatically created if it doesn't exist.
 
-- Supported image formats are: `JPG`, `JPEG`, and `PNG`. These formats will be converted to WebP format during the conversion process.
+> Supported image formats are: `JPG`, `JPEG`, and `PNG`. These formats will be converted to WebP format during the conversion process.
 
 <br />
 
@@ -89,19 +97,15 @@ When the conversion is performed, you can check the conversion information as sh
 <br />
 <br />
 
-## Options
+## 🔧 Options
 
 The following options are available: `path`, `destination`, `quality`, `lossless`, `resize`, and `crop`. These options allow you to customize the conversion process according to your needs.
 
 ### 1. Path
 
-- `--p` or `--path`: The path to the images to convert.
-- default: `./images`
+**`--p` or `--path`: The path to the images to convert.**
 
-```bash
-npm run webpc --p ./images
-npm run webpc --path ./images
-```
+- default: `./images`
 
 ```bash
 yarn webpc --p ./images
@@ -113,17 +117,18 @@ pnpm run webpc --p ./images
 pnpm run webpc --path ./images
 ```
 
+```bash
+npm run webpc --p ./images
+npm run webpc --path ./images
+```
+
 <br />
 
 ### 2. Destination
 
-- `--d` or `--destination`: The path to save the converted images.
-- default: `./images/webp`
+**`--d` or `--destination`: The path to save the converted images.**
 
-```bash
-npm run webpc --d ./images/webp
-npm run webpc --destination ./images/webp
-```
+- default: `./images/webp`
 
 ```bash
 yarn webpc --d ./images/webp
@@ -135,17 +140,18 @@ pnpm run webpc --d ./images/webp
 pnpm run webpc --destination ./images/webp
 ```
 
+```bash
+npm run webpc --d ./images/webp
+npm run webpc --destination ./images/webp
+```
+
 <br />
 
 ### 3. Quality
 
-- `--q` or `--quality`: The quality of the converted images.
-- default: `75`
+**`--q` or `--quality`: The quality of the converted images.**
 
-```bash
-npm run webpc --q 90
-npm run webpc --quality 90
-```
+- default: `75`
 
 ```bash
 yarn webpc --q 90
@@ -157,17 +163,18 @@ pnpm run webpc --q 90
 pnpm run webpc --quality 90
 ```
 
+```bash
+npm run webpc --q 90
+npm run webpc --quality 90
+```
+
 <br />
 
 ### 4. Lossless
 
-- `-l` or `--lossless`: Whether to use lossless compression.
-- default: `false`
+**`-l` or `--lossless`: Use lossless compression.**
 
-```bash
-npm run webpc --l true
-npm run webpc --lossless true
-```
+- default: `false`
 
 ```bash
 yarn webpc --l true
@@ -179,16 +186,19 @@ pnpm run webpc --l true
 pnpm run webpc --lossless true
 ```
 
+```bash
+npm run webpc --l true
+npm run webpc --lossless true
+```
+
 <br />
 
 ### 5. Resize
 
-- `--r` or `--resize`: Whether to resize the images.
+**`--r` or `--resize`: Resize the images by specifying width and height.**
 
-```bash
-npm run webpc --r.width 100 --r.height 100
-npm run webpc --resize.width 100 --resize.height 100
-```
+- `width`: Width of the resized image (pixels)
+- `height`: Height of the resized image (pixels)
 
 ```bash
 yarn webpc --r.width 100 --r.height 100
@@ -200,20 +210,21 @@ pnpm run webpc --r.width 100 --r.height 100
 pnpm run webpc --resize.width 100 --resize.height 100
 ```
 
+```bash
+npm run webpc --r.width 100 --r.height 100
+npm run webpc --resize.width 100 --resize.height 100
+```
+
 <br />
 
 ### 6. Crop
 
-- `--c` or `--crop`: Whether to crop the images.
-  - `x`: Starting x-coordinate for cropping (pixels)
-  - `y`: Starting y-coordinate for cropping (pixels)
-  - `width`: Width of the crop area (pixels)
-  - `height`: Height of the crop area (pixels)
+**`--c` or `--crop`: Whether to crop the images.**
 
-```bash
-npm run webpc --c.x 100 --c.y 100 --c.width 100 --c.height 100
-npm run webpc --crop.x 100 --crop.y 100 --crop.width 100 --crop.height 100
-```
+- `x`: Starting x-coordinate for cropping (pixels)
+- `y`: Starting y-coordinate for cropping (pixels)
+- `width`: Width of the crop area (pixels)
+- `height`: Height of the crop area (pixels)
 
 ```bash
 yarn webpc --c.x 100 --c.y 100 --c.width 100 --c.height 100
@@ -225,8 +236,24 @@ pnpm run webpc --c.x 100 --c.y 100 --c.width 100 --c.height 100
 pnpm run webpc --crop.x 100 --crop.y 100 --crop.width 100 --crop.height 100
 ```
 
+```bash
+npm run webpc --c.x 100 --c.y 100 --c.width 100 --c.height 100
+npm run webpc --crop.x 100 --crop.y 100 --crop.width 100 --crop.height 100
+```
+
 <br />
 
-## License
+## 🤝 Acknowledgements
+
+This project was created with reference to the following projects. These libraries provide powerful image optimization and WebP conversion capabilities that form the foundation of this tool.
+
+- [imagemin](https://github.com/imagemin/imagemin)
+- [imagemin-webp](https://github.com/imagemin/imagemin-webp)
+
+<br />
+
+## 📝 License
 
 MIT © ssi02014. See [LICENSE](LICENSE) for details.
+
+<br />
