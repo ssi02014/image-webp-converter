@@ -172,7 +172,7 @@ npm run webpc --quality 90
 
 ### 4. Lossless
 
-**`-l` or `--lossless`: Use lossless compression.**
+**`--l` or `--lossless`: Use lossless compression.**
 
 - default: `false`
 
