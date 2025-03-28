@@ -1,15 +1,16 @@
 {
   "name": "image-webp-converter",
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Simple Image Webp Converter",
-  "main": "./index.mjs",
+  "main": "./dist/index.mjs",
   "scripts": {
-    "start": "node ./index.mjs"
+    "build": "rm -rf dist && rollup -c",
+    "start": "node ./dist/index.mjs"
   },
   "bin": {
-    "image-webp-converter": "./index.mjs",
-    "webpc": "./index.mjs"
+    "image-webp-converter": "./dist/index.mjs",
+    "webpc": "./dist/index.mjs"
   },
   "author": "ssi02014",
   "license": "MIT",
@@ -34,5 +35,11 @@
     "optimization",
     "cli",
     "converter"
-  ]
+  ],
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "esbuild": "^0.25.1",
+    "rollup": "^4.37.0",
+    "rollup-plugin-esbuild": "^6.2.1"
+  }
 }

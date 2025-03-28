@@ -1,50 +1,8 @@
-import imagemin from "imagemin";
-import imageminWebp from "imagemin-webp";
-
-import yargs from "yargs";
-import { hideBin } from "yargs/helpers";
-
 import fs from "fs";
 import path from "path";
+import { argv } from "./yargs.js";
 
 const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
-
-const argv = yargs(hideBin(process.argv))
-  .option("path", {
-    alias: "p",
-    description: "Images directory path",
-    default: "images",
-    type: "string",
-  })
-  .option("destination", {
-    alias: "d",
-    description: "Destination directory path",
-    default: "images/webp",
-    type: "string",
-  })
-  .option("quality", {
-    alias: "q",
-    description: "WebP quality (1-100)",
-    default: 75,
-    type: "number",
-  })
-  .option("lossless", {
-    alias: "l",
-    description: "Encode images losslessly",
-    default: false,
-    type: "boolean",
-  })
-  .option("resize", {
-    alias: "r",
-    description: "Resize the image",
-    type: "object",
-  })
-  .option("crop", {
-    alias: "c",
-    description: "Crop the image",
-    type: "object",
-  })
-  .help().argv;
 
 const getFiles = (dirPath) => {
   const items = fs.readdirSync(dirPath);
@@ -55,7 +13,7 @@ const getFiles = (dirPath) => {
   });
 };
 
-const isValidFileFormat = () => {
+export const isValidFileFormat = () => {
   const files = getFiles(argv.path);
 
   if (files.length === 0) {
@@ -81,7 +39,7 @@ const getCompareSize = (sourceFile, destinationFile) => {
   return { originalSize, newSize, savings };
 };
 
-const compareSize = async () => {
+export const compareSize = async () => {
   const sourceFiles = getFiles(argv.path).filter(
     (file) => path.extname(file).toLowerCase() !== ".webp"
   );
@@ -111,7 +69,7 @@ const compareSize = async () => {
   }
 };
 
-const printOptionsInfo = () => {
+export const printOptionsInfo = () => {
   console.log(`\n📄 Options:`);
   console.log(
     `1. 📁 Source: "${argv.path}" ➡️ 📂 Destination: "${argv.destination}"`
@@ -132,27 +90,3 @@ const printOptionsInfo = () => {
     );
   }
 };
-
-async function ImageWebpConverter() {
-  if (!isValidFileFormat()) return;
-
-  printOptionsInfo();
-
-  await imagemin([`${argv.path}/*.{jpg,jpeg,png}`], {
-    destination: argv.destination,
-    plugins: [
-      imageminWebp({
-        quality: argv.quality,
-        lossless: argv.lossless,
-        resize: argv.resize,
-        crop: argv.crop,
-      }),
-    ],
-  });
-
-  compareSize();
-
-  console.log("\n✅ Images have been successfully converted to Webp format!");
-}
-
-ImageWebpConverter();
