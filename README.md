@@ -1,4 +1,4 @@
-# 🌄 Image Webp Converter
+# 🌄 Image Webp Converter <a href="https://www.npmjs.com/package/image-webp-converter" target="_blank"><img align="center" src="https://img.shields.io/npm/v/image-webp-converter.svg" /></a>
 
 This is a simple CLI tool that allows you to convert images to webp format. It provides an easy way to convert `JPG`, `JPEG`, and `PNG` images to the more efficient `Webp` format. With this tool, you can:
 
@@ -13,15 +13,15 @@ This is a simple CLI tool that allows you to convert images to webp format. It p
 ## 📦 Installation
 
 ```bash
-yarn add image-webp-converter
+yarn add -D image-webp-converter
 ```
 
 ```bash
-pnpm add image-webp-converter
+pnpm add -D image-webp-converter
 ```
 
 ```bash
-npm install image-webp-converter
+npm install --save-dev image-webp-converter
 ```
 
 <br />
@@ -100,6 +100,20 @@ When the conversion is performed, you can check the conversion information as sh
 ## 🔧 Options
 
 The following options are available: `path`, `destination`, `quality`, `lossless`, `resize`, and `crop`. These options allow you to customize the conversion process according to your needs.
+
+```bash
+yarn webpc --path ./my-images --destination ./my-images/webp --quality 90 ...
+```
+
+```bash
+pnpm run webpc --path ./my-images --destination ./my-images/webp --quality 90 ...
+```
+
+```bash
+npm run webpc --path ./my-images --destination ./my-images/webp --quality 90 ...
+```
+
+<br />
 
 ### 1. Path
 
