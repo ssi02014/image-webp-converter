@@ -12,6 +12,8 @@ This is a simple CLI tool that allows you to convert images to webp format. It p
 
 ## 📦 Installation
 
+- Since this is a CLI tool, install the package as a `devDependency` using one of the following commands:
+
 ```bash
 yarn add -D image-webp-converter
 ```
@@ -30,10 +32,13 @@ npm install --save-dev image-webp-converter
 
 After installing the package, add the following script to your `package.json` file.
 
-```json title="package.json"
+```json
+// package.json
 {
+  // ...
   "scripts": {
     "webpc": "webpc"
+    // ...
   }
 }
 ```
