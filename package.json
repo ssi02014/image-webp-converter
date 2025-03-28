@@ -1,15 +1,15 @@
 {
   "name": "image-webp-converter",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple Image Webp Converter",
-  "main": "./dist/index.js",
+  "main": "./index.mjs",
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node ./index.mjs"
   },
   "bin": {
-    "image-webp-converter": "./index.js",
-    "webpc": "./index.js"
+    "image-webp-converter": "./index.mjs",
+    "webpc": "./index.mjs"
   },
   "author": "ssi02014",
   "license": "MIT",
