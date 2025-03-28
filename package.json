@@ -6,7 +6,7 @@
   "main": "./dist/index.mjs",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
-    "start": "node ./dist/index.mjs"
+    "start": "node ./src/index.js"
   },
   "bin": {
     "image-webp-converter": "./dist/index.mjs",
