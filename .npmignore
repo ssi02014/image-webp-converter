@@ -12,5 +12,8 @@ yarn.lock
 .gitignore
 
 # setting
+rollup.config.mjs
 .nvmrc
+
+# project files
 src
