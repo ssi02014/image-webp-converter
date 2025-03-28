@@ -12,6 +12,6 @@ export default [
         format: "esm",
       },
     ],
-    plugins: [commonjs(), esbuild({ minify: true })],
+    plugins: [commonjs(), esbuild()],
   },
 ];

@@ -4,6 +4,7 @@ import imagemin from "imagemin";
 import imageminWebp from "imagemin-webp";
 
 import { argv } from "./yargs.js";
+import { isValidFileFormat, printOptionsInfo, compareSize } from "./utils.js";
 
 async function ImageWebpConverter() {
   if (!isValidFileFormat()) return;
