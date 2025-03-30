@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { argv } from "./yargs.js";
 
-const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
+const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png"];
 
 const getFiles = (dirPath) => {
   const items = fs.readdirSync(dirPath);
@@ -28,7 +28,11 @@ export const isValidFileFormat = () => {
     const file = files[i];
     const ext = path.extname(file).slice(1);
     if (!IMAGE_EXTENSIONS.includes(ext)) {
-      throw new Error(`Invalid file format: ${file}`);
+      throw new Error(
+        `Invalid file format: ${file}. Supported formats: ${IMAGE_EXTENSIONS.join(
+          "/"
+        )}`
+      );
     }
   }
 
@@ -75,23 +79,47 @@ export const compareSize = async () => {
 };
 
 export const printOptionsInfo = () => {
-  console.log(`\n📄 Options:`);
-  console.log(
-    `1. 📁 Source: "${argv.path}" ➡️ 📂 Destination: "${argv.destination}"`
-  );
+  const options = [
+    {
+      label: "📁 Source/Destination",
+      value: `"${argv.path}" ➡️ "${argv.destination}"`,
+      show: true,
+    },
+    {
+      label: "🔍 Quality",
+      value: argv.quality,
+      show: true,
+    },
+    {
+      label: "🔒 Lossless",
+      value: argv.lossless,
+      show: true,
+    },
+    {
+      label: "📐 Size",
+      value: argv.size,
+      show: !!argv.size,
+    },
+    {
+      label: "📐 Resize",
+      value:
+        argv.resize &&
+        `width: ${argv.resize.width}, height: ${argv.resize.height}`,
+      show: !!argv.resize,
+    },
+    {
+      label: "📐 Crop",
+      value:
+        argv.crop &&
+        `x: ${argv.crop.x}, y: ${argv.crop.y}, width: ${argv.crop.width}, height: ${argv.crop.height}`,
+      show: !!argv.crop,
+    },
+  ];
 
-  console.log(`2. 🔍 Quality: ${argv.quality}`);
-  console.log(`3. 🔒 Lossless: ${argv.lossless}`);
-
-  if (argv.resize) {
-    console.log(
-      `4. 📐 Resize: width: ${argv.resize.width}, height: ${argv.resize.height}`
-    );
-  }
-
-  if (argv.crop) {
-    console.log(
-      `5. 📐 Crop: x: ${argv.crop.x}, y: ${argv.crop.y}, width: ${argv.crop.width}, height: ${argv.crop.height}`
-    );
-  }
+  console.log("\n📄 Options:");
+  options
+    .filter((opt) => opt.show)
+    .forEach((opt, index) => {
+      console.log(`${index + 1}. ${opt.label}: ${opt.value}`);
+    });
 };

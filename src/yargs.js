@@ -4,7 +4,7 @@ import { hideBin } from "yargs/helpers";
 const DESCRIPTIONS = {
   path: "Images directory path",
   destination: "Destination directory path",
-  quality: "WebP quality (1-100)",
+  quality: "Webp quality (1-100)",
   lossless: "Encode images losslessly",
   size: "Size of the image",
   resize: "Resize the image (format: { width: number, height: number })",
@@ -45,8 +45,7 @@ export const argv = yargs(hideBin(process.argv))
   .option("size", {
     alias: "s",
     description: DESCRIPTIONS.size,
-    default: "original",
-    type: "string",
+    type: "number",
   })
   .option("resize", {
     alias: "r",

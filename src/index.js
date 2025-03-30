@@ -17,14 +17,16 @@ const ImageWebpConverter = async () => {
       imageminWebp({
         quality: argv.quality,
         lossless: argv.lossless,
+        size: argv.size,
         resize: argv.resize,
         crop: argv.crop,
-        size: argv.size,
       }),
     ],
   });
 
   compareSize();
+
+  console.log("\n✅ Images have been successfully converted to Webp format!");
 };
 
 ImageWebpConverter();
