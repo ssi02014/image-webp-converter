@@ -1,18 +1,35 @@
-# 🌄 Image Webp Converter <a href="https://www.npmjs.com/package/image-webp-converter" target="_blank"><img align="center" src="https://img.shields.io/npm/v/image-webp-converter.svg" /></a>
+# 🌄 Image WebP Converter <a href="https://www.npmjs.com/package/image-webp-converter" target="_blank"><img align="center" src="https://img.shields.io/npm/v/image-webp-converter.svg" /></a>
 
-This is a simple CLI tool that allows you to convert images to webp format. It provides an easy way to convert `JPG`, `JPEG`, and `PNG` images to the more efficient `Webp` format. With this tool, you can:
+<br />
+
+> 🚀 A powerful yet simple CLI tool that converts your images to WebP format - the modern image format that provides superior compression for images on the web!
+
+## Why Image Webp Converter?
+
+This tool simplifies the process of converting your `JPG`, `JPEG`, and `PNG` images to `WebP` format, helping you optimize your web assets with minimal effort. Here's what you can do:
 
 - Convert multiple images at once
 - Maintain image quality while reducing file size
 - Customize output settings like quality and lossless
 - Resize images during conversion
 - Crop images to specific dimensions
+- Process images in nested subdirectories
+- Limit output file size to specific byte size
+
+<br />
+
+💡 **Benefits of WebP**:
+
+- Smaller file sizes compared to JPG/JPEG/PNG
+- Faster website loading times
+- Supported by all modern browsers
+- Perfect for web optimization
 
 <br />
 
 ## 📦 Installation
 
-- Since this is a CLI tool, install the package as a `devDependency` using one of the following commands:
+Since this is a CLI tool, install the package as a `devDependency` using one of the following commands:
 
 ```bash
 yarn add -D image-webp-converter
@@ -45,7 +62,36 @@ After installing the package, add the following script to your `package.json` fi
 
 <br />
 
-Run the following command to convert the images to webp format.
+Place your images in your desired directory (default: `./images`):
+
+```
+your-project/
+├── images/            # default: ./images
+│   ├── image1.jpg
+│   ├── image2.png
+│   ├── image3.jpeg
+│   └── nested/
+│       └── image4.jpg
+│       └── image5.png
+│       └── image6.jpeg
+├── src/
+├── package.json
+└── ...
+```
+
+<br />
+
+**💡 Notes**
+
+> By default, it converts all images (including those in nested subdirectories) in the `./images` directory of the current directory. Therefore, if the `./images` directory does not exist, you need to create it and add images.
+
+> By default, converted images are saved in the `./images/webp` directory. This directory will be automatically created if it doesn't exist.
+
+> Supported image formats are: `JPG`, `JPEG`, and `PNG`. These formats will be converted to WebP format during the conversion process.
+
+<br />
+
+Run the following command to convert the images to `WebP` format.
 
 ```bash
 yarn webpc
@@ -61,36 +107,28 @@ npm run webpc
 
 <br />
 
-### Notes
-
-> By default, it converts all images in the `./images` directory of the current directory. Therefore, if the `./images` directory does not exist, you need to create it and add images.
-
-> By default, converted images are saved in the `images/webp` directory. This directory will be automatically created if it doesn't exist.
-
-> Supported image formats are: `JPG`, `JPEG`, and `PNG`. These formats will be converted to WebP format during the conversion process.
-
-<br />
-
-### AS-IS
+### Result
 
 ```
-images
-├── image1.jpg
-├── image2.png
-└── image3.jpeg
-```
-
-### TO-BE
-
-```
-images/
-├── webp/
-│   ├── image1.webp
-│   ├── image2.webp
-│   └── image3.webp
-├── image1.jpg
-├── image2.png
-└── image3.jpeg
+your-project/
+├── images/
+│   ├── image1.jpg
+│   ├── image2.png
+│   ├── image3.jpeg
+│   ├── nested/
+│   │    ├── image4.jpg
+│   │    ├── image5.png
+│   │    └── image6.jpeg
+│   └── webp/            # converted images
+│       ├── image1.webp
+│       ├── image2.webp
+│       ├── image3.webp
+│       ├── image4.webp
+│       ├── image5.webp
+│       └── image6.webp
+├── src/
+├── package.json
+└── ...
 ```
 
 <br />
@@ -99,7 +137,6 @@ When the conversion is performed, you can check the conversion information as sh
 
 <img width="758" alt="Image" src="https://github.com/user-attachments/assets/d426bb59-041a-474c-b36a-b1a95eef368c" />
 
-<br />
 <br />
 
 ## 🔧 Options
@@ -212,12 +249,33 @@ npm run webpc --lossless true
 
 <br />
 
-### 5. Resize
+### 5. Size
+
+**`--s` or `--size`: Limit the output file size to the specified byte size.**
+
+```bash
+yarn webpc --s 100000
+yarn webpc --size 100000
+```
+
+```bash
+pnpm run webpc --s 100000
+pnpm run webpc --size 100000
+```
+
+```bash
+npm run webpc --s 100000
+npm run webpc --size 100000
+```
+
+<br />
+
+### 6. Resize
 
 **`--r` or `--resize`: Resize the images by specifying width and height.**
 
-- `width`: Width of the resized image (pixels)
-- `height`: Height of the resized image (pixels)
+- `width`: Width of the resized image (pixels) - `required`
+- `height`: Height of the resized image (pixels) - `required`
 
 ```bash
 yarn webpc --r.width 100 --r.height 100
@@ -236,14 +294,14 @@ npm run webpc --resize.width 100 --resize.height 100
 
 <br />
 
-### 6. Crop
+### 7. Crop
 
 **`--c` or `--crop`: Whether to crop the images.**
 
-- `x`: Starting x-coordinate for cropping (pixels)
-- `y`: Starting y-coordinate for cropping (pixels)
-- `width`: Width of the crop area (pixels)
-- `height`: Height of the crop area (pixels)
+- `x`: Starting x-coordinate for cropping (pixels) - `required`
+- `y`: Starting y-coordinate for cropping (pixels) - `required`
+- `width`: Width of the crop area (pixels) - `required`
+- `height`: Height of the crop area (pixels) - `required`
 
 ```bash
 yarn webpc --c.x 100 --c.y 100 --c.width 100 --c.height 100

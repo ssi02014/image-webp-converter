@@ -6,11 +6,33 @@ const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
 
 const getFiles = (dirPath) => {
   const items = fs.readdirSync(dirPath);
+  let files = [];
 
-  return items.filter((item) => {
+  for (const item of items) {
     const itemPath = path.join(dirPath, item);
-    return fs.statSync(itemPath).isFile();
-  });
+    const stat = fs.statSync(itemPath);
+
+    if (stat.isFile()) {
+      files.push(itemPath);
+    } else if (stat.isDirectory()) {
+      files = files.concat(getFiles(itemPath));
+    }
+  }
+
+  return files;
+};
+
+const getFileSize = (filePath) => {
+  return fs.statSync(filePath).size;
+};
+
+const getCompareSize = (sourceFile, destinationFile) => {
+  const originalSize = getFileSize(sourceFile);
+  const newSize = getFileSize(destinationFile);
+
+  const savings = (((originalSize - newSize) / originalSize) * 100).toFixed(2);
+
+  return { originalSize, newSize, savings };
 };
 
 export const isValidFileFormat = () => {
@@ -20,23 +42,18 @@ export const isValidFileFormat = () => {
     throw new Error("No files found in the directory");
   }
 
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    const ext = path.extname(file).slice(1);
-    if (!IMAGE_EXTENSIONS.includes(ext)) {
-      throw new Error(`Invalid file format: ${file}`);
-    }
+  const invalidFile = files.find((file) => {
+    const ext = path.extname(file).slice(1).toLowerCase();
+    return !IMAGE_EXTENSIONS.includes(ext);
+  });
+
+  if (invalidFile) {
+    throw new Error(
+      `Invalid file format: ${invalidFile}. Supported formats: jpg/jpeg/png`
+    );
   }
 
   return true;
-};
-
-const getCompareSize = (sourceFile, destinationFile) => {
-  const originalSize = fs.statSync(`${argv.path}/${sourceFile}`).size;
-  const newSize = fs.statSync(`${argv.destination}/${destinationFile}`).size;
-  const savings = (((originalSize - newSize) / originalSize) * 100).toFixed(2);
-
-  return { originalSize, newSize, savings };
 };
 
 export const compareSize = async () => {
@@ -61,32 +78,59 @@ export const compareSize = async () => {
       destinationFile
     );
 
+    const sourceFileName = path.basename(sourceFile);
+    const destinationFileName = path.basename(destinationFile);
+
     console.log(
       `${
         i + 1
-      }. ${sourceFile} (${originalSize}bytes) ➡️ ${destinationFile} (${newSize}bytes): 💾 ${savings}% saved`
+      }. ${sourceFileName} (${originalSize}bytes) ➡️ ${destinationFileName} (${newSize}bytes): 💾 ${savings}% saved`
     );
   }
 };
 
 export const printOptionsInfo = () => {
-  console.log(`\n📄 Options:`);
-  console.log(
-    `1. 📁 Source: "${argv.path}" ➡️ 📂 Destination: "${argv.destination}"`
-  );
+  const options = [
+    {
+      label: "📁 Source/Destination",
+      value: `"${argv.path}" ➡️ "${argv.destination}"`,
+      show: true,
+    },
+    {
+      label: "🔍 Quality",
+      value: argv.quality,
+      show: true,
+    },
+    {
+      label: "🔒 Lossless",
+      value: argv.lossless,
+      show: true,
+    },
+    {
+      label: "📐 Size",
+      value: argv.size,
+      show: !!argv.size,
+    },
+    {
+      label: "📐 Resize",
+      value:
+        argv.resize &&
+        `width: ${argv.resize.width}, height: ${argv.resize.height}`,
+      show: !!argv.resize,
+    },
+    {
+      label: "📐 Crop",
+      value:
+        argv.crop &&
+        `x: ${argv.crop.x}, y: ${argv.crop.y}, width: ${argv.crop.width}, height: ${argv.crop.height}`,
+      show: !!argv.crop,
+    },
+  ];
 
-  console.log(`2. 🔍 Quality: ${argv.quality}`);
-  console.log(`3. 🔒 Lossless: ${argv.lossless}`);
-
-  if (argv.resize) {
-    console.log(
-      `4. 📐 Resize: width: ${argv.resize.width}, height: ${argv.resize.height}`
-    );
-  }
-
-  if (argv.crop) {
-    console.log(
-      `5. 📐 Crop: x: ${argv.crop.x}, y: ${argv.crop.y}, width: ${argv.crop.width}, height: ${argv.crop.height}`
-    );
-  }
+  console.log("\n📄 Options:");
+  options
+    .filter((opt) => opt.show)
+    .forEach((opt, index) => {
+      console.log(`${index + 1}. ${opt.label}: ${opt.value}`);
+    });
 };
