@@ -11,7 +11,7 @@ const ImageWebpConverter = async () => {
 
   printOptionsInfo();
 
-  await imagemin([`${argv.path}/*.{jpg,jpeg,png}`], {
+  await imagemin([`${argv.path}/**/*.{jpg,jpeg,png}`], {
     destination: argv.destination,
     plugins: [
       imageminWebp({
