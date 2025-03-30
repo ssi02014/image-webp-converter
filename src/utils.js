@@ -13,6 +13,10 @@ const getFiles = (dirPath) => {
   });
 };
 
+const getFileSize = (filePath) => {
+  return fs.statSync(filePath).size;
+};
+
 export const isValidFileFormat = () => {
   const files = getFiles(argv.path);
 
@@ -32,8 +36,9 @@ export const isValidFileFormat = () => {
 };
 
 const getCompareSize = (sourceFile, destinationFile) => {
-  const originalSize = fs.statSync(`${argv.path}/${sourceFile}`).size;
-  const newSize = fs.statSync(`${argv.destination}/${destinationFile}`).size;
+  const originalSize = getFileSize(path.join(argv.path, sourceFile));
+  const newSize = getFileSize(path.join(argv.destination, destinationFile));
+
   const savings = (((originalSize - newSize) / originalSize) * 100).toFixed(2);
 
   return { originalSize, newSize, savings };

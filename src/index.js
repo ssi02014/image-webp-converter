@@ -6,7 +6,7 @@ import imageminWebp from "imagemin-webp";
 import { argv } from "./yargs.js";
 import { isValidFileFormat, printOptionsInfo, compareSize } from "./utils.js";
 
-async function ImageWebpConverter() {
+const ImageWebpConverter = async () => {
   if (!isValidFileFormat()) return;
 
   printOptionsInfo();
@@ -19,13 +19,12 @@ async function ImageWebpConverter() {
         lossless: argv.lossless,
         resize: argv.resize,
         crop: argv.crop,
+        size: argv.size,
       }),
     ],
   });
 
   compareSize();
-
-  console.log("\n✅ Images have been successfully converted to Webp format!");
-}
+};
 
 ImageWebpConverter();
