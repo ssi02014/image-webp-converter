@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import { argv } from "./yargs.js";
 
 const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
 
@@ -35,8 +34,8 @@ const getCompareSize = (sourceFile, destinationFile) => {
   return { originalSize, newSize, savings };
 };
 
-export const isValidFileFormat = () => {
-  const files = getFiles(argv.path);
+export const isValidFileFormat = (options) => {
+  const files = getFiles(options.path);
 
   if (files.length === 0) {
     throw new Error("No files found in the directory");
@@ -56,12 +55,12 @@ export const isValidFileFormat = () => {
   return true;
 };
 
-export const compareSize = async () => {
-  const sourceFiles = getFiles(argv.path).filter(
+export const compareSize = (options) => {
+  const sourceFiles = getFiles(options.path).filter(
     (file) => path.extname(file).toLowerCase() !== ".webp"
   );
 
-  const destinationFiles = getFiles(argv.destination).filter(
+  const destinationFiles = getFiles(options.destination).filter(
     (file) => path.extname(file).toLowerCase() === ".webp"
   );
 
@@ -89,46 +88,46 @@ export const compareSize = async () => {
   }
 };
 
-export const printOptionsInfo = () => {
-  const options = [
+export const printOptionsInfo = (options) => {
+  const optionsInfo = [
     {
       label: "📁 Source/Destination",
-      value: `"${argv.path}" ➡️ "${argv.destination}"`,
+      value: `"${options.path}" ➡️ "${options.destination}"`,
       show: true,
     },
     {
       label: "🔍 Quality",
-      value: argv.quality,
+      value: options.quality,
       show: true,
     },
     {
       label: "🔒 Lossless",
-      value: argv.lossless,
+      value: options.lossless,
       show: true,
     },
     {
       label: "📐 Size",
-      value: argv.size,
-      show: !!argv.size,
+      value: options.size,
+      show: !!options.size,
     },
     {
       label: "📐 Resize",
       value:
-        argv.resize &&
-        `width: ${argv.resize.width}, height: ${argv.resize.height}`,
-      show: !!argv.resize,
+        options.resize &&
+        `width: ${options.resize.width}, height: ${options.resize.height}`,
+      show: !!options.resize,
     },
     {
       label: "📐 Crop",
       value:
-        argv.crop &&
-        `x: ${argv.crop.x}, y: ${argv.crop.y}, width: ${argv.crop.width}, height: ${argv.crop.height}`,
-      show: !!argv.crop,
+        options.crop &&
+        `x: ${options.crop.x}, y: ${options.crop.y}, width: ${options.crop.width}, height: ${options.crop.height}`,
+      show: !!options.crop,
     },
   ];
 
   console.log("\n📄 Options:");
-  options
+  optionsInfo
     .filter((opt) => opt.show)
     .forEach((opt, index) => {
       console.log(`${index + 1}. ${opt.label}: ${opt.value}`);

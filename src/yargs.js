@@ -15,19 +15,16 @@ export const argv = yargs(hideBin(process.argv))
   .option("path", {
     alias: "p",
     description: DESCRIPTIONS.path,
-    default: "images",
     type: "string",
   })
   .option("destination", {
     alias: "d",
     description: DESCRIPTIONS.destination,
-    default: "images/webp",
     type: "string",
   })
   .option("quality", {
     alias: "q",
     description: DESCRIPTIONS.quality,
-    default: 75,
     type: "number",
     coerce: (value) => {
       if (value < 1 || value > 100) {
@@ -39,7 +36,6 @@ export const argv = yargs(hideBin(process.argv))
   .option("lossless", {
     alias: "l",
     description: DESCRIPTIONS.lossless,
-    default: false,
     type: "boolean",
   })
   .option("size", {
