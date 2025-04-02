@@ -7,7 +7,8 @@ const getFiles = (dirPath) => {
   const items = fs.readdirSync(dirPath);
   let files = [];
 
-  for (const item of items) {
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
     const itemPath = path.join(dirPath, item);
     const stat = fs.statSync(itemPath);
 
