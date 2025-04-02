@@ -343,6 +343,11 @@ export default {
   destination: "images/webp2",
   quality: 80,
   lossless: false,
+  // object
+  resize: {
+    width: 500,
+    height: 500,
+  },
   // ...
 };
 ```
