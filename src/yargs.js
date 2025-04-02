@@ -1,6 +1,7 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { getConfigFileOptions } from "./config.js";
+import { isNil } from "./common.js";
 
 const DESCRIPTIONS = {
   path: "Images directory path",
@@ -17,31 +18,29 @@ const DEFAULT_OPTIONS = {
   destination: "images/webp",
   quality: 75,
   lossless: false,
-  size: null,
-  resize: null,
-  crop: null,
 };
 
 export const getArgv = async () => {
   const configFileOptions = await getConfigFileOptions();
 
   return yargs(hideBin(process.argv))
+    .config(configFileOptions)
     .option("path", {
       alias: "p",
       description: DESCRIPTIONS.path,
-      default: configFileOptions.path || DEFAULT_OPTIONS.path,
+      default: DEFAULT_OPTIONS.path,
       type: "string",
     })
     .option("destination", {
       alias: "d",
       description: DESCRIPTIONS.destination,
-      default: configFileOptions.destination || DEFAULT_OPTIONS.destination,
+      default: DEFAULT_OPTIONS.destination,
       type: "string",
     })
     .option("quality", {
       alias: "q",
       description: DESCRIPTIONS.quality,
-      default: configFileOptions.quality || DEFAULT_OPTIONS.quality,
+      default: DEFAULT_OPTIONS.quality,
       type: "number",
       coerce: (value) => {
         if (value < 1 || value > 100) {
@@ -53,27 +52,20 @@ export const getArgv = async () => {
     .option("lossless", {
       alias: "l",
       description: DESCRIPTIONS.lossless,
-      default: configFileOptions.lossless || DEFAULT_OPTIONS.lossless,
+      default: DEFAULT_OPTIONS.lossless,
       type: "boolean",
     })
     .option("size", {
       alias: "s",
       description: DESCRIPTIONS.size,
-      default: configFileOptions.size || DEFAULT_OPTIONS.size,
       type: "number",
-      coerce: (value) => {
-        if (value == null) return null;
-        return value;
-      },
     })
     .option("resize", {
       alias: "r",
       description: DESCRIPTIONS.resize,
-      default: configFileOptions.resize || DEFAULT_OPTIONS.resize,
       type: "object",
       coerce: (value) => {
-        if (value == null) return null;
-        if (!value.width || !value.height) {
+        if (isNil(value.width) || isNil(value.height)) {
           throw new Error("Resize requires both width and height");
         }
         return value;
@@ -82,11 +74,14 @@ export const getArgv = async () => {
     .option("crop", {
       alias: "c",
       description: DESCRIPTIONS.crop,
-      default: configFileOptions.crop || DEFAULT_OPTIONS.crop,
       type: "object",
       coerce: (value) => {
-        if (value == null) return null;
-        if (!value.width || !value.height || !value.x || !value.y) {
+        if (
+          isNil(value.width) ||
+          isNil(value.height) ||
+          isNil(value.x) ||
+          isNil(value.y)
+        ) {
           throw new Error("Crop requires width, height, x, and y coordinates");
         }
         return value;
