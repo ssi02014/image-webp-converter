@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import { argv } from "./yargs.js";
 
 const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp"];
 
@@ -35,7 +34,7 @@ const getCompareSize = (sourceFile, destinationFile) => {
   return { originalSize, newSize, savings };
 };
 
-export const isValidFileFormat = () => {
+export const isValidFileFormat = (argv) => {
   const files = getFiles(argv.path);
 
   if (files.length === 0) {
@@ -56,7 +55,7 @@ export const isValidFileFormat = () => {
   return true;
 };
 
-export const compareSize = async () => {
+export const compareSize = async (argv) => {
   const sourceFiles = getFiles(argv.path).filter(
     (file) => path.extname(file).toLowerCase() !== ".webp"
   );
@@ -89,7 +88,7 @@ export const compareSize = async () => {
   }
 };
 
-export const printOptionsInfo = () => {
+export const printOptionsInfo = (argv) => {
   const options = [
     {
       label: "📁 Source/Destination",

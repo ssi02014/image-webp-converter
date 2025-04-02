@@ -1,7 +1,7 @@
 {
   "name": "image-webp-converter",
   "type": "module",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Simple Image Webp Converter",
   "main": "./dist/index.mjs",
   "scripts": {

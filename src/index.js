@@ -3,13 +3,15 @@
 import imagemin from "imagemin";
 import imageminWebp from "imagemin-webp";
 
-import { argv } from "./yargs.js";
+import { getArgv } from "./yargs.js";
 import { isValidFileFormat, printOptionsInfo, compareSize } from "./utils.js";
 
 const ImageWebpConverter = async () => {
-  if (!isValidFileFormat()) return;
+  const argv = await getArgv();
 
-  printOptionsInfo();
+  if (!isValidFileFormat(argv)) return;
+
+  printOptionsInfo(argv);
 
   await imagemin([`${argv.path}/**/*.{jpg,jpeg,png}`], {
     destination: argv.destination,
@@ -24,7 +26,7 @@ const ImageWebpConverter = async () => {
     ],
   });
 
-  compareSize();
+  compareSize(argv);
 
   console.log("\n✅ Images have been successfully converted to Webp format!");
 };

@@ -66,7 +66,7 @@ Place your images in your desired directory (default: `./images`):
 
 ```
 your-project/
-├── images/            # default: ./images
+├── images/         # Directory for original images to convert(default: ./images)
 │   ├── image1.jpg
 │   ├── image2.png
 │   ├── image3.jpeg
@@ -119,7 +119,7 @@ your-project/
 │   │    ├── image4.jpg
 │   │    ├── image5.png
 │   │    └── image6.jpeg
-│   └── webp/            # converted images
+│   └── webp/         # Directory for converted images(default: ./images/webp)
 │       ├── image1.webp
 │       ├── image2.webp
 │       ├── image3.webp
@@ -137,6 +137,7 @@ When the conversion is performed, you can check the conversion information as sh
 
 <img width="758" alt="Image" src="https://github.com/user-attachments/assets/d426bb59-041a-474c-b36a-b1a95eef368c" />
 
+<br />
 <br />
 
 ## 🔧 Options
@@ -317,6 +318,38 @@ pnpm run webpc --crop.x 100 --crop.y 100 --crop.width 100 --crop.height 100
 npm run webpc --c.x 100 --c.y 100 --c.width 100 --c.height 100
 npm run webpc --crop.x 100 --crop.y 100 --crop.width 100 --crop.height 100
 ```
+
+<br />
+
+## 📝 Configuration
+
+You can also use a configuration file to customize the conversion process.
+
+create a `webpc.config.mjs` file in the root of your project.
+
+```
+your-project/
+├── images/
+├── src/
+├── package.json
+├── webpc.config.js
+└── ...
+```
+
+```ts
+// webpc.config.mjs
+export default {
+  path: "images",
+  destination: "images/webp2",
+  quality: 80,
+  lossless: false,
+  // ...
+};
+```
+
+**💡 Notes**
+
+> command-line interface (CLI) arguments take precedence over options defined in the configuration file.
 
 <br />
 
