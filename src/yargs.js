@@ -1,7 +1,7 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { getConfigFileOptions } from "./config.js";
-import { isNil } from "./common.js";
+import { isNil } from "./utils.js";
 
 const DESCRIPTIONS = {
   path: "Images directory path",

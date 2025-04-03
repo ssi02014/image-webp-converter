@@ -134,3 +134,7 @@ export const printOptionsInfo = (argv) => {
       console.log(`${index + 1}. ${opt.label}: ${opt.value}`);
     });
 };
+
+export const isNil = (value) => {
+  return value == null;
+};
