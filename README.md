@@ -332,7 +332,7 @@ your-project/
 ├── images/
 ├── src/
 ├── package.json
-├── webpc.config.js
+├── webpc.config.mjs
 └── ...
 ```
 
@@ -343,10 +343,10 @@ export default {
   destination: "images/webp2",
   quality: 80,
   lossless: false,
-  // object
+  // object: resize, crop
   resize: {
-    width: 500,
-    height: 500,
+    width: 500, // required
+    height: 500, // required
   },
   // ...
 };
