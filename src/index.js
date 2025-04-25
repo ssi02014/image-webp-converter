@@ -11,6 +11,8 @@ const ImageWebpConverter = async () => {
 
   if (!isValidFileFormat(argv)) return;
 
+  console.log("🚀 Starting Image WebP Conversion...");
+
   printOptionsInfo(argv);
 
   await imagemin([`${argv.path}/**/*.{jpg,jpeg,png}`], {

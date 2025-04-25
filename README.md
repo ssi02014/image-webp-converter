@@ -327,6 +327,8 @@ You can also use a configuration file to customize the conversion process.
 
 create a `webpc.config.mjs` file in the root of your project.
 
+- `cjs` config file is not supported.
+
 ```
 your-project/
 ├── images/

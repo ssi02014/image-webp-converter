@@ -33,8 +33,11 @@
     "png",
     "webp",
     "optimization",
+    "compression",
     "cli",
-    "converter"
+    "converter",
+    "imagemin",
+    "automation"
   ],
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.3",
