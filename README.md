@@ -15,6 +15,8 @@ English | [한국어](README-ko_kr.md) | [简体中文](README-zh_cn.md) | [日�
 
 > 🚀 A powerful yet simple CLI tool that converts your images to WebP format - the modern image format that provides superior compression for images on the web!
 
+<br />
+
 ## Why Image Webp Converter?
 
 This tool simplifies the process of converting your `JPG`, `JPEG`, and `PNG` images to `WebP` format, helping you optimize your web assets with minimal effort. Here's what you can do:
